@@ -47,6 +47,8 @@ public class FragmentMore extends DialogFragment {
             public void onClick(View v) {
                 // Hun das ki hai
                 // Dhyan de lya kar babeya
+//                thk aa
+
                 callback.onItemClick(pos);
             }
         });
