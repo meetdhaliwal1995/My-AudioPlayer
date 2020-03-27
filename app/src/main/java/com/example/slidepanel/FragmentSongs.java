@@ -45,6 +45,8 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
 
         fragmentMore = new FragmentMore();
 
+        fragm
+
     }
 
 

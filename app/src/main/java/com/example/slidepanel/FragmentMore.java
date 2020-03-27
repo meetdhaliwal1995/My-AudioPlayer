@@ -20,7 +20,6 @@ public class FragmentMore extends DialogFragment {
     private List<PhnSongs> _list = new ArrayList<>();
     private GetUrlInterface callback;
     FragmentSongs fragmentSongs;
-    int position;
 
 
     @Nullable
@@ -41,6 +40,7 @@ public class FragmentMore extends DialogFragment {
 
         mainActivity = (MainActivity) getActivity();
 
+
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,11 +48,14 @@ public class FragmentMore extends DialogFragment {
 
             }
         });
-
+    }
+    public setGetUrlInterface(GetUrlInterface getUrlInterface) {
+        this.callback = getUrlInterface;
     }
 
     public void set_list(List<PhnSongs> _list) {
         this._list = _list;
     }
+
 
 }
