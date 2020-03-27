@@ -38,17 +38,13 @@ public class FragmentMore extends DialogFragment {
         queue = view.findViewById(R.id.text_queue);
         edit = view.findViewById(R.id.text_edit);
         dlte = view.findViewById(R.id.text_delete);
-
+//        corona
         mainActivity = (MainActivity) getActivity();
 
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Hun das ki hai
-                // Dhyan de lya kar babeya
-//                thk aa
-                // ki thik aa?
                 callback.onItemClick(pos);
             }
         });
