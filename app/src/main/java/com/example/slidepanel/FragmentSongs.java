@@ -42,18 +42,14 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
         recyclerView.setAdapter(adapterSongs);
 
         songClass = new SongClass();
-
-        fragmentMore = new FragmentMore();
-
-        fragm
-
     }
 
-
+    public void setFragmentMore(FragmentMore fragmentMore) {
+        this.fragmentMore = fragmentMore;
+    }
 
     @Override
     public void onItemClick(int position) {
-
         getMainActivity.songPlay(position);
     }
 

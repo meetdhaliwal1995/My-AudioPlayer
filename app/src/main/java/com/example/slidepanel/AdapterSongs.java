@@ -91,8 +91,8 @@ public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> 
                     MainActivity activity = (MainActivity) context;
 //                  call main activity bcoz i want get support manager;
 
-
                     FragmentMore fragmentMore = new FragmentMore();
+                    fragmentMore.setGetUrlInterface(anInterface, getAdapterPosition());
                     activity.getSupportFragmentManager().beginTransaction()
                             .add(android.R.id.content, fragmentMore)
                             .addToBackStack(fragmentMore.getTag())
