@@ -41,7 +41,6 @@ public class FragmentMore extends DialogFragment {
 //        corona
         mainActivity = (MainActivity) getActivity();
 
-
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
