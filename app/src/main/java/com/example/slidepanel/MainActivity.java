@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +28,18 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
     public List<ModelArtistSong> _listArtist = new ArrayList<>();
     public List<ModelAbum> _listAlbumSong = new ArrayList<>();
     FragmentSongs fragmentSongs;
-    ImageView down;
+    ImageView down, view, more, search;
     SeekBar seekBar;
-    ImageView play, back, next;
-    TextView textView;
+    ImageView play, back, next, backiv;
+    TextView textView, songText, libery;
     SongClass songClass;
     PerformThred performThred;
     int position;
     FragmentArtist fragmentArtist;
     FragmentAlbum fragmentAlbum;
     FragmentMore fragmentMore;
+    SearchView searchView;
+    AdapterSongs adapterSongs;
 
 
     @Override
@@ -48,6 +52,14 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
         back = findViewById(R.id.previous);
         next = findViewById(R.id.next);
         textView = findViewById(R.id.song_name5);
+        search = findViewById(R.id.search);
+        searchView = findViewById(R.id.search_tv);
+        down = findViewById(R.id.down);
+        songText = findViewById(R.id.song_text);
+        backiv = findViewById(R.id.back_iv);
+        view = findViewById(R.id.view);
+        more = findViewById(R.id.more);
+        libery = findViewById(R.id.libery_text);
 
         songClass = new SongClass();
         songClass.getPlayer();
@@ -74,8 +86,8 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
 
 
         play.setBackgroundResource(R.drawable.ic_play);
+        songText.setText("Songs");
 
-        down = findViewById(R.id.down);
 
         final Animation a = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce_animation);
         final Animation b = AnimationUtils.loadAnimation(MainActivity.this, R.anim.bounce_animation);
@@ -85,6 +97,55 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
             @Override
             public void onClick(View v) {
                 memuPopup();
+            }
+        });
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setVisibility(View.GONE);
+                libery.setVisibility(View.GONE);
+                more.setVisibility(View.GONE);
+                down.setVisibility(View.GONE);
+                view.setVisibility(View.GONE);
+                songText.setVisibility(View.GONE);
+
+                searchView.setVisibility(View.VISIBLE);
+                backiv.setVisibility(View.VISIBLE);
+            }
+        });
+
+        backiv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setVisibility(View.VISIBLE);
+                libery.setVisibility(View.VISIBLE);
+                more.setVisibility(View.VISIBLE);
+                down.setVisibility(View.VISIBLE);
+                view.setVisibility(View.VISIBLE);
+                songText.setVisibility(View.VISIBLE);
+
+                searchView.setVisibility(View.GONE);
+                backiv.setVisibility(View.GONE);
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (_list.contains(query)) {
+                    adapterSongs.getFilter().filter(query);
+                    fragmentSongs.getString(query);
+                } else {
+                    Toast.makeText(MainActivity.this, "no match found", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterSongs.getFilter().filter(newText);
+                return false;
             }
         });
 
@@ -193,6 +254,8 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.item1:
+                        songText.setText("Songs");
+
                         if (!fragmentSongs.isAdded()) {
                             getSupportFragmentManager().beginTransaction()
                                     .add(R.id.container_layout2, fragmentSongs)
@@ -203,8 +266,12 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
 
                     case R.id.item2:
 
+                        songText.setText("Folders");
+
                         break;
                     case R.id.item3:
+                        songText.setText("Artist");
+
                         if (!fragmentArtist.isAdded()) {
 
                             getSupportFragmentManager().beginTransaction()
@@ -216,6 +283,8 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
 
                         break;
                     case R.id.item4:
+                        songText.setText("Album");
+
                         if (!fragmentAlbum.isAdded()) {
                             getSupportFragmentManager().beginTransaction()
                                     .add(R.id.container_layout2, fragmentAlbum)
@@ -351,6 +420,10 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
                 _listAlbumSong.add(modelAbum);
             }
         }
+    }
+
+    public void setAdapterSongs(AdapterSongs adapterSongs) {
+        this.adapterSongs = adapterSongs;
     }
 }
 

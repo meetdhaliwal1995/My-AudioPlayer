@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:visibility="visible"
             android:src="@drawable/ic_view_headline"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="Library"
+            android:visibility="visible"
             android:textColor="#fff"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/view"
@@ -42,7 +44,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="Songs"
             android:textColor="#fff"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:visibility="visible"
             android:src="@drawable/ic_arrow_drop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/libery_text"
@@ -64,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
+            android:visibility="visible"
             android:src="@drawable/ic_more"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -75,9 +78,43 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_search"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/more"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:iconifiedByDefault="false"
+            app:layout_goneMarginStart="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/back_iv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Search Text"
+            app:searchIcon="@null" />
+
+        <ImageView
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/search_tv"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

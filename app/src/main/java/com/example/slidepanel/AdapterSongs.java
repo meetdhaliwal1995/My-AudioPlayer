@@ -4,20 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> {
+public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> implements Filterable {
 
     private Context context;
     private List<PhnSongs> _list;
     //    private SongClass songClass;
     private GetUrlInterface anInterface;
+    private List<PhnSongs> _listAllSong;
 
 
     public AdapterSongs(Context context, List<PhnSongs> _list, GetUrlInterface anInterface) {
@@ -25,6 +30,7 @@ public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> 
         this.context = context;
         this._list = _list;
         this.anInterface = anInterface;
+        this._listAllSong = new ArrayList<>(_list);
     }
 //this.interface
 
@@ -53,6 +59,42 @@ public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> 
 
         return _list.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+
+        //        run on background thred
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<PhnSongs> filteredList = new ArrayList<>();
+            if (constraint.toString().isEmpty()) {
+                filteredList.addAll(_listAllSong);
+            } else {
+                for (PhnSongs song : _listAllSong) {
+                    if (song.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        _listAllSong.add(song);
+                    }
+                }
+            }
+
+            FilterResults filter = new FilterResults();
+            filter.values = filteredList;
+            return filter;
+        }
+
+        //        run on UI thred
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            _list.clear();
+            _list.addAll((Collection<? extends PhnSongs>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //        public Notification.WearableExtender constraintLayout;

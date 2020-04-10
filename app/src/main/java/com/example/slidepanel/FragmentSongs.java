@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
     SongClass songClass;
     private MainActivity getMainActivity;
     FragmentMore fragmentMore;
+    String name = null;
 
 
     @Nullable
@@ -42,11 +44,20 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
         recyclerView.setAdapter(adapterSongs);
 
         songClass = new SongClass();
+//        getMainActivity.setAdapterSongs(adapterSongs);
+
+        Bundle bundle = this.getArguments();
+
+        if (bundle != null) {
+            String foo = getArguments().getString("teste");
+
+            Toast.makeText(getActivity().getApplicationContext(), foo, Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void setFragmentMore(FragmentMore fragmentMore) {
-        this.fragmentMore = fragmentMore;
-    }
+//    public void setFragmentMore(FragmentMore fragmentMore) {
+//        this.fragmentMore = fragmentMore;
+//    }
 
     @Override
     public void onItemClick(int position) {
@@ -63,6 +74,9 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
     public void set_list(List<PhnSongs> _list) {
         this._list = _list;
         Log.e("song", String.valueOf(_list.size()));
+    }
+    public void getString(String str){
+        this.name = str;
     }
 
 
