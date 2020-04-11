@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,14 @@ public class FragmentMore extends DialogFragment {
             @Override
             public void onClick(View v) {
                 callback.onItemClick(pos);
+            }
+        });
+
+        dlte.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.onLongClick(pos);
+                Toast.makeText(getContext(),"song dlte",Toast.LENGTH_SHORT).show();
             }
         });
     }
