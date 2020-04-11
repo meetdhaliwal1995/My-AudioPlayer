@@ -1,5 +1,6 @@
 package com.example.slidepanel;
 
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
     SongClass songClass;
     private MainActivity getMainActivity;
     FragmentMore fragmentMore;
-    String name = null;
+    String name;
 
 
     @Nullable
