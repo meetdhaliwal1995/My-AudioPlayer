@@ -23,7 +23,7 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
     SongClass songClass;
     private MainActivity getMainActivity;
     FragmentMore fragmentMore;
-    String name;
+    public static String query;
 
 
     @Nullable
@@ -47,13 +47,6 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
         songClass = new SongClass();
 //        getMainActivity.setAdapterSongs(adapterSongs);
 
-        Bundle bundle = this.getArguments();
-
-        if (bundle != null) {
-            String foo = getArguments().getString("teste");
-
-            Toast.makeText(getActivity().getApplicationContext(), foo, Toast.LENGTH_SHORT).show();
-        }
     }
 
 //    public void setFragmentMore(FragmentMore fragmentMore) {
@@ -77,10 +70,8 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
         Log.e("song", String.valueOf(_list.size()));
     }
     public void getString(String str){
-        this.name = str;
+        this.query = str;
     }
-
-
 }
 
 
