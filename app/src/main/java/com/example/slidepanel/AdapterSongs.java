@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> implements Filterable {
+public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> {
 
     private Context context;
     private List<PhnSongs> _list;
@@ -60,41 +60,10 @@ public class AdapterSongs extends RecyclerView.Adapter<AdapterSongs.ViewHolder> 
         return _list.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return filter;
+    public void refreshData(List<PhnSongs> tempList) {
+        this._list = tempList;
+        notifyDataSetChanged();
     }
-
-    Filter filter = new Filter() {
-
-        //        run on background thred
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-
-            List<PhnSongs> filteredList = new ArrayList<>();
-            if (constraint.toString().isEmpty()) {
-                filteredList.addAll(_listAllSong);
-            } else {
-                for (PhnSongs song : _listAllSong) {
-                    if (song.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                        _listAllSong.add(song);
-                    }
-                }
-            }
-
-            FilterResults filter = new FilterResults();
-            filter.values = filteredList;
-            return filter;
-        }
-
-        //        run on UI thred
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            _list.clear();
-            _list.addAll((Collection<? extends PhnSongs>) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //        public Notification.WearableExtender constraintLayout;

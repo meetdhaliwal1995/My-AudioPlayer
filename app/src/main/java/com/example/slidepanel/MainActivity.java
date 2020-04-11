@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
     FragmentAlbum fragmentAlbum;
     FragmentMore fragmentMore;
     SearchView searchView;
-    AdapterSongs adapterSongs;
 
 
     @Override
@@ -133,18 +131,19 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (_list.contains(query)) {
-                    adapterSongs.getFilter().filter(query);
-                    fragmentSongs.getString(query);
-                } else {
-                    Toast.makeText(MainActivity.this, "no match found", Toast.LENGTH_SHORT).show();
-                }
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapterSongs.getFilter().filter(newText);
+                fragmentSongs.setString(newText);
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
                 return false;
             }
         });
@@ -420,10 +419,6 @@ public class MainActivity extends AppCompatActivity implements PlayPauseInterfac
                 _listAlbumSong.add(modelAbum);
             }
         }
-    }
-
-    public void setAdapterSongs(AdapterSongs adapterSongs) {
-        this.adapterSongs = adapterSongs;
     }
 }
 

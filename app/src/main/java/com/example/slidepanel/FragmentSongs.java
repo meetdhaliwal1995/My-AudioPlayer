@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentSongs extends Fragment implements GetUrlInterface {
@@ -39,7 +40,7 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
 
         getMainActivity = (MainActivity) getActivity();
 
-        adapterSongs = new AdapterSongs(getContext(), MainActivity._list, this);
+        adapterSongs = new AdapterSongs(getContext(), _list, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setItemViewCacheSize(500);
         recyclerView.setAdapter(adapterSongs);
@@ -76,8 +77,23 @@ public class FragmentSongs extends Fragment implements GetUrlInterface {
         this._list = _list;
         Log.e("song", String.valueOf(_list.size()));
     }
-    public void getString(String str){
+
+    public void setString(String str) {
         this.name = str;
+
+        List<PhnSongs> _tempList = new ArrayList<>();
+
+        if (!str.equalsIgnoreCase("")) {
+            for (PhnSongs song : _list) {
+                if (song.getTitle().toLowerCase().contains(str.toLowerCase())) {
+                    _tempList.add(song);
+                }
+            }
+        } else {
+            _tempList = _list;
+        }
+
+        adapterSongs.refreshData(_tempList);
     }
 
 
